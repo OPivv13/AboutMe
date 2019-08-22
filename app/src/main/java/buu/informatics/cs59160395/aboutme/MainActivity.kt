@@ -15,6 +15,7 @@ import buu.informatics.cs59160395.aboutme.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val myName: MyName = MyName("Oranong Songson")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,9 @@ class MainActivity : AppCompatActivity() {
             nicknameText.setOnClickListener {
                 updateNickname(it)
             }
+            myName = this@MainActivity.myName
         }
+
     }
 
     private fun updateNickname (view: View){
@@ -46,10 +49,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun addNickname(view: View){
         binding.apply {
-            binding.nicknameText.text = binding.nicknameEdit.text
-            binding.nicknameEdit.visibility = View.GONE
-            binding.nicknameText.visibility = View.VISIBLE
-            binding.doneButton.visibility = View.GONE
+            myName?.nickname = nicknameEdit.text.toString()
+            nicknameEdit.visibility = View.GONE
+            nicknameText.visibility = View.VISIBLE
+            doneButton.visibility = View.GONE
+            invalidateAll()
 
             // hide the keyboard
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
